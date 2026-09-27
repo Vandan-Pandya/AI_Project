@@ -64,4 +64,8 @@ desktop.ini
 logs/
 temp/
 tmp/
+*.jpg
+*.jpeg
+*.png
+
 explanation.txt

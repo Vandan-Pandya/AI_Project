@@ -30,11 +30,14 @@ PROVIDER_BASE_URLS: Dict[str, str] = {
     "ollama": "http://localhost:11434/v1",
 }
 
-# PostgreSQL Database Configuration
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@localhost:5432/edumentor_db"
-).strip()
+# PostgreSQL / Supabase Database Configuration
+raw_db_url = os.getenv("DATABASE_URL", "").strip().strip('"').strip("'")
+
+# Normalize postgres:// to postgresql:// for SQLAlchemy 2.0 / Psycopg compatibility
+if raw_db_url.startswith("postgres://"):
+    raw_db_url = raw_db_url.replace("postgres://", "postgresql://", 1)
+
+DATABASE_URL = raw_db_url
 
 # JWT & Security Configuration
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "edumentor_super_secret_jwt_key_change_in_production_2026")

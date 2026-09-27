@@ -48,6 +48,7 @@ def on_startup():
 # Core Endpoints: System & Routers
 # ---------------------------------------------------------------------------
 @app.get("/", include_in_schema=False)
+@app.get("", include_in_schema=False)
 def root():
     """Redirects to Swagger interactive documentation."""
     return RedirectResponse(url="/docs")
